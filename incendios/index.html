@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crisis de Incendios Forestales 2026 - Análisis Técnico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcfaf7;
+            color: #2d2a26;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(229, 231, 235, 0.5);
+            transition: transform 0.2s ease;
+        }
+
+        .nav-link.active {
+            border-bottom: 2px solid #c2410c;
+            color: #c2410c;
+        }
+
+        .step-node {
+            transition: all 0.3s ease;
+        }
+
+        .step-node:hover {
+            background-color: #fff7ed;
+            border-color: #fdba74;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Chosen Palette: Fuego y Resiliencia (Neutros cálidos, naranja quemado, gris piedra) -->
+    <!-- Application Structure Plan: Se ha diseñado una estructura de Dashboard Narrativo. La aplicación comienza con un resumen de métricas críticas (Impacto Inmediato) y se divide en cuatro secciones temáticas: Magnitud, Termodinámica, Economía y Gobernanza. Se ha elegido este flujo para que el usuario entienda primero "qué pasó", luego "por qué es diferente (sexta generación)", después "cuánto cuesta" y finalmente "cómo se gestiona legalmente". -->
+    <!-- Visualization & Content Choices: 
+        1. Comparativa España-UE -> Gráfico de Tarta (Chart.js) -> Mostrar la desproporción del impacto.
+        2. Evolución 2025-2026 -> Gráfico de Barras -> Visualizar el salto exponencial (x5.1).
+        3. Ciclo de Sexta Generación -> Diagrama interactivo HTML/CSS -> Explicar el acoplamiento atmosférico.
+        4. Prevención vs Extinción -> Gráfico de Barras Comparativo -> Evidenciar el fallo en la eficiencia del gasto.
+        5. Crecimiento Biomasa -> Gráfico de Líneas/Área -> Datos IFN sobre acumulación de combustible.
+        CONFIRMACIÓN: NO se utilizan gráficos SVG ni librerías Mermaid JS. 
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <nav class="sticky top-0 z-50 bg-white/90 border-b border-orange-100 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <h1 class="text-xl font-bold text-stone-800 tracking-tight">Crisis Forestal <span class="text-orange-700">España 2026</span></h1>
+            <div class="flex gap-6 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto text-sm font-medium">
+                <button onclick="showSection('resumen')" class="nav-link active whitespace-nowrap px-2 py-1">Resumen</button>
+                <button onclick="showSection('impacto')" class="nav-link whitespace-nowrap px-2 py-1">Impacto Datos</button>
+                <button onclick="showSection('ciencia')" class="nav-link whitespace-nowrap px-2 py-1">6ª Generación</button>
+                <button onclick="showSection('economia')" class="nav-link whitespace-nowrap px-2 py-1">Economía</button>
+                <button onclick="showSection('gobernanza')" class="nav-link whitespace-nowrap px-2 py-1">Gobernanza</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- SECCIÓN: RESUMEN / DASHBOARD INICIAL -->
+        <section id="resumen" class="content-section block">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-stone-900 mb-4">Análisis de Emergencia Nacional</h2>
+                <p class="text-lg text-stone-600 max-w-3xl">Este portal interactivo desglosa los hallazgos del informe técnico sobre la temporada de incendios 2026. España se ha convertido en el epicentro de la emergencia climática europea, enfrentando incendios que superan la capacidad física de extinción humana.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+                <div class="glass-card p-6 rounded-xl shadow-sm border-l-4 border-orange-600">
+                    <span class="text-stone-500 text-sm font-semibold uppercase tracking-wider">Hectáreas Calcinadas</span>
+                    <div class="text-4xl font-bold text-orange-700 mt-2">219.665</div>
+                    <p class="text-xs text-stone-500 mt-1">47,2% del total de la UE</p>
+                </div>
+                <div class="glass-card p-6 rounded-xl shadow-sm border-l-4 border-stone-800">
+                    <span class="text-stone-500 text-sm font-semibold uppercase tracking-wider">Grandes Incendios (GIF)</span>
+                    <div class="text-4xl font-bold text-stone-800 mt-2">22</div>
+                    <p class="text-xs text-stone-500 mt-1">Triplica la media de la década</p>
+                </div>
+                <div class="glass-card p-6 rounded-xl shadow-sm border-l-4 border-orange-600">
+                    <span class="text-stone-500 text-sm font-semibold uppercase tracking-wider">Multiplicador vs 2025</span>
+                    <div class="text-4xl font-bold text-orange-700 mt-2">x 5.1</div>
+                    <p class="text-xs text-stone-500 mt-1">Respecto a julio de 2025</p>
+                </div>
+                <div class="glass-card p-6 rounded-xl shadow-sm border-l-4 border-red-800">
+                    <span class="text-stone-500 text-sm font-semibold uppercase tracking-wider">Límite de Extinción</span>
+                    <div class="text-4xl font-bold text-red-800 mt-2">>10k</div>
+                    <p class="text-xs text-stone-500 mt-1">kW/m (Intensidad lineal)</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="glass-card p-8 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-4">Distribución del Impacto Territorial</h3>
+                    <p class="text-sm text-stone-600 mb-6">Visualización de la carga que España soporta sobre el total de la superficie quemada en la Unión Europea en 2026.</p>
+                    <div class="chart-container">
+                        <canvas id="chartImpactoUE"></canvas>
+                    </div>
+                </div>
+                <div class="glass-card p-8 rounded-2xl bg-stone-900 text-white">
+                    <h3 class="text-xl font-bold mb-4">Tragedia Humana y Social</h3>
+                    <div class="space-y-4">
+                        <div class="border-l-2 border-orange-500 pl-4">
+                            <h4 class="font-bold text-orange-400">Los Gallardos (Almería)</h4>
+                            <p class="text-sm text-stone-300">13 fallecidos por avance explosivo. Ventanas de evacuación reducidas a márgenes críticos.</p>
+                        </div>
+                        <div class="border-l-2 border-orange-500 pl-4">
+                            <h4 class="font-bold text-orange-400">Sierra Norte de Guadalajara</h4>
+                            <p class="text-sm text-stone-300">Incendio de La Mierla: >30.000 ha. Fuera de capacidad de control técnica.</p>
+                        </div>
+                        <div class="border-l-2 border-orange-500 pl-4">
+                            <h4 class="font-bold text-orange-400">Cataluña (Sentmenat/Anoia)</h4>
+                            <p class="text-sm text-stone-300">Confinamiento masivo de 40.000 personas por toxicidad de humo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: IMPACTO DATOS -->
+        <section id="impacto" class="content-section hidden">
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold text-stone-900 mb-4">La Magnitud de la Crisis</h2>
+                <p class="text-stone-600">Análisis cuantitativo de la temporada 2026. Los datos revelan una asimetría crítica: España concentra casi la mitad del daño forestal de toda la Unión Europea, operando con discrepancias metodológicas entre EFFIS y MITECO.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Comparativa Interanual (Hectáreas)</h3>
+                    <div class="chart-container">
+                        <canvas id="chartComparativaAnual"></canvas>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-lg border border-stone-200">
+                        <h4 class="font-bold text-stone-800">MITECO vs EFFIS</h4>
+                        <p class="text-sm text-stone-600 mt-2">Mientras EFFIS (Copernicus) ofrece datos satelitales en tiempo real (~219k ha), el MITECO valida sobre el terreno con desfase, confirmando a finales de julio >101k ha consolidadas y 22 Grandes Incendios Forestales (GIF).</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg border border-stone-200">
+                        <h4 class="font-bold text-stone-800">El Factor Climático</h4>
+                        <p class="text-sm text-stone-600 mt-2">Olas de calor persistentes en julio/agosto redujeron la humedad de combustibles vivos a niveles de madera muerta (<5%).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: CIENCIA Y TERMODINÁMICA -->
+        <section id="ciencia" class="content-section hidden">
+            <div class="mb-10 text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold text-stone-900 mb-4">Incendios de Sexta Generación</h2>
+                <p class="text-stone-600">El fuego ha dejado de estar condicionado por la meteorología para pasar a <strong>crear su propia meteorología</strong> mediante procesos de acoplamiento atmosférico.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div class="step-node p-6 border-2 border-stone-200 rounded-xl">
+                    <div class="w-10 h-10 bg-orange-700 text-white rounded-full flex items-center justify-center font-bold mb-4">1</div>
+                    <h4 class="font-bold mb-2">Convección Masiva</h4>
+                    <p class="text-sm text-stone-600">La combustión de biomasa libera energía masiva que fractura la estabilidad de la troposfera inferior.</p>
+                </div>
+                <div class="step-node p-6 border-2 border-stone-200 rounded-xl">
+                    <div class="w-10 h-10 bg-orange-700 text-white rounded-full flex items-center justify-center font-bold mb-4">2</div>
+                    <h4 class="font-bold mb-2">Pirocumulonimbus</h4>
+                    <p class="text-sm text-stone-600">Se forman nubes de fuego que condensan humedad y generan tormentas secas y reventones térmicos.</p>
+                </div>
+                <div class="step-node p-6 border-2 border-stone-200 rounded-xl">
+                    <div class="w-10 h-10 bg-orange-700 text-white rounded-full flex items-center justify-center font-bold mb-4">3</div>
+                    <h4 class="font-bold mb-2">Retroalimentación</h4>
+                    <p class="text-sm text-stone-600">Las corrientes descendentes expanden el fuego de forma errática, saltando cualquier cortafuegos.</p>
+                </div>
+            </div>
+
+            <div class="bg-orange-50 p-8 rounded-2xl border border-orange-100">
+                <h3 class="text-xl font-bold text-orange-900 mb-4">Colapso de la Capacidad de Extinción</h3>
+                <p class="mb-6 text-orange-800">Cuando la intensidad lineal supera los <strong>10.000 kW/m</strong>, el agua se evapora antes de tocar el combustible. El ataque directo es estéril.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-2">
+                            <span class="text-orange-600 font-bold">●</span>
+                            <span class="text-sm">Velo de humo denso que impide el vuelo seguro de medios aéreos.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-orange-600 font-bold">●</span>
+                            <span class="text-sm">Salto de pavesas a kilómetros de distancia.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-orange-600 font-bold">●</span>
+                            <span class="text-sm">Repliegue obligado a defensa de poblaciones únicamente.</span>
+                        </li>
+                    </ul>
+                    <div class="bg-white p-4 rounded-lg shadow-inner">
+                        <div class="text-center italic text-stone-500 text-sm mb-4">Esquema del Pirocumulonimbus (Mecánica de Succión)</div>
+                        <div class="h-40 w-full bg-gradient-to-t from-orange-400 via-stone-400 to-stone-200 rounded relative overflow-hidden">
+                            <div class="absolute bottom-0 w-full h-8 bg-stone-800"></div>
+                            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-24 h-32 bg-orange-600/30 rounded-t-full blur-xl animate-pulse"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: ECONOMÍA Y PREVENCIÓN -->
+        <section id="economia" class="content-section hidden">
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold text-stone-900 mb-4">Economía de la Emergencia</h2>
+                <p class="text-stone-600">España gasta mayoritariamente en apagar, no en prevenir. Analizamos la ineficiencia presupuestaria y el coste de oportunidad del abandono forestal.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <div>
+                    <h3 class="text-xl font-bold mb-6 text-stone-800">Coste por Hectárea: Extinción vs Prevención</h3>
+                    <div class="chart-container">
+                        <canvas id="chartCostes"></canvas>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center">
+                    <div class="space-y-6">
+                        <div class="p-6 bg-stone-100 rounded-xl">
+                            <h4 class="font-bold text-stone-800">Asimetría Presupuestaria</h4>
+                            <p class="text-sm text-stone-600 mt-1">El 78% de los recursos se destinan a extinción (aparato reactivo) mientras que solo el 12% se dedica a selvicultura preventiva estructural.</p>
+                        </div>
+                        <div class="p-6 bg-green-50 border border-green-100 rounded-xl">
+                            <h4 class="font-bold text-green-900">Potencial de Retorno</h4>
+                            <p class="text-sm text-green-800 mt-1">Una inversión de 1.000 M€ en prevención generaría un ahorro estimado de 99.000 M€ en costes evitados de extinción, restauraciones e indemnizaciones.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-white border border-stone-200 rounded-2xl p-8">
+                <h3 class="text-xl font-bold mb-6">El Almacén de Combustible: Datos del IFN</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-stone-800">+64%</div>
+                        <p class="text-sm text-stone-500 mt-2">Crecimiento del stock de madera (1996-2009). Biomasa amontonada en el monte.</p>
+                    </div>
+                    <div class="text-center border-x border-stone-100 px-4">
+                        <div class="text-3xl font-bold text-stone-800">35%</div>
+                        <p class="text-sm text-stone-500 mt-2">Grado de aprovechamiento forestal. El 65% del crecimiento anual queda como "polvorín".</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-stone-800">3.42%</div>
+                        <p class="text-sm text-stone-500 mt-2">Ritmo de incremento de superficie arbolada (Triple que la media europea).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: GOBERNANZA -->
+        <section id="gobernanza" class="content-section hidden">
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold text-stone-900 mb-4">Gobernanza y Protocolos</h2>
+                <p class="text-stone-600">Evaluación de los marcos normativos que rigen la respuesta coordinada entre administraciones nacionales y europeas.</p>
+            </div>
+
+            <div class="space-y-8">
+                <!-- RD LEY -->
+                <div class="glass-card p-8 rounded-2xl">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold">Nacional</div>
+                        <h3 class="text-xl font-bold">Real Decreto-ley 15/2022</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <p class="text-sm text-stone-600">Obliga a las CCAA a mantener planes de prevención y extinción activos <strong>todo el año</strong>. Homogeneiza los lenguajes de radio y simbología cartográfica para evitar el colapso táctico cuando convergen brigadas de distintas regiones.</p>
+                        <ul class="text-sm space-y-2">
+                            <li class="flex items-center gap-2">✔ Planes aplicables en todo el territorio.</li>
+                            <li class="flex items-center gap-2">✔ Certificación técnica de unidades.</li>
+                            <li class="flex items-center gap-2">✔ Coordinación unificada vía CLIF.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SITUACIÓN 3 -->
+                <div class="bg-stone-900 text-white p-8 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-4">Situación Operativa 3: Emergencia Nacional</h3>
+                    <p class="text-sm text-stone-400 mb-6">Mecanismo de último recurso bajo la Ley 17/2015 del Sistema Nacional de Protección Civil.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="border-l-4 border-orange-600 pl-4">
+                            <h4 class="font-bold mb-1">Mando Único (UME)</h4>
+                            <p class="text-sm text-stone-400">Declarada por el Ministerio del Interior. El jefe de la UME asume la dirección estratégica y priorización de medios.</p>
+                        </div>
+                        <div class="border-l-4 border-stone-600 pl-4">
+                            <h4 class="font-bold mb-1">Unidad de Mando ≠ Uniformidad Técnica</h4>
+                            <p class="text-sm text-stone-400">Los operativos autonómicos no se retiran; se integran aportando el conocimiento crítico de la orografía y vegetación local.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RESCEU -->
+                <div class="border-2 border-stone-200 p-8 rounded-2xl">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-xs font-bold">Europeo</div>
+                        <h3 class="text-xl font-bold">Mecanismo rescEU y Objetivos de Resiliencia</h3>
+                    </div>
+                    <p class="text-sm text-stone-600 mb-4">Solidaridad continental mediante flotas aéreas estratégicas (Aerial Forest Firefighting). Sin embargo, el análisis técnico advierte:</p>
+                    <div class="p-4 bg-orange-50 border border-orange-100 rounded-lg text-orange-900 text-sm italic">
+                        "La flota rescEU es inútil frente a un pirocúmulo si el país receptor no ha invertido previamente en selvicultura para bajar la carga térmica del monte."
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-stone-100 border-t border-stone-200 py-10 mt-20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-stone-500 text-sm">Informe Técnico de Evaluación - Temporada 2026</p>
+            <p class="text-stone-400 text-xs mt-2">Basado en datos de MITECO, EFFIS, AEMET y registros del Inventario Forestal Nacional.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Gestión de navegación
+        function showSection(id) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+            
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Gráficos
+        const ctxImpacto = document.getElementById('chartImpactoUE').getContext('2d');
+        new Chart(ctxImpacto, {
+            type: 'doughnut',
+            data: {
+                labels: ['España', 'Resto de la Unión Europea'],
+                datasets: [{
+                    data: [219665, 464781 - 219665],
+                    backgroundColor: ['#c2410c', '#e7e5e4'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        const ctxAnual = document.getElementById('chartComparativaAnual').getContext('2d');
+        new Chart(ctxAnual, {
+            type: 'bar',
+            data: {
+                labels: ['Julio 2025', 'Julio 2026'],
+                datasets: [{
+                    label: 'Hectáreas quemadas',
+                    data: [43071, 219665], // 219k / 5.1
+                    backgroundColor: ['#fdba74', '#c2410c']
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        const ctxCostes = document.getElementById('chartCostes').getContext('2d');
+        new Chart(ctxCostes, {
+            type: 'bar',
+            data: {
+                labels: ['Prevención (Silvicultura)', 'Extinción (Ataque)'],
+                datasets: [{
+                    label: 'Coste medio por hectárea (€)',
+                    data: [2000, 14500], // Medias de las horquillas 500-3500 y 10k-19k
+                    backgroundColor: ['#16a34a', '#dc2626']
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.x.toLocaleString() + ' €/ha';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

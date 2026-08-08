@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ceuta: El Tablero Geopolítico 2026 | Informe de Inteligencia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --bg-arena: #fdfaf6;
+            --pizarra: #2d3436;
+            --acento-gold: #c0392b;
+            --deep-blue: #0984e3;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-arena);
+            color: var(--pizarra);
+            line-height: 1.6;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--acento-gold);
+            transition: width 0.3s;
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .sidebar-indicator {
+            border-left: 4px solid var(--acento-gold);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+<!-- Chosen Palette: Arena del Estrecho (Warm neutrals, Slate grey, Crimson accents) -->
+<!-- Application Structure Plan: 
+    1. Navigation: A fixed header to switch between the 4 pillars of the report.
+    2. Module 1 (Crisis 2026): A real-time data dashboard style with a comparison chart against 2021 and detailed contextual cards for the international actors (US/Israel).
+    3. Module 2 (History): A vertical interactive timeline that validates Spanish sovereignty dates (1415-1956).
+    4. Module 3 (Economy): Analysis of the "economic strangulation" with a dynamic chart showing the growth of Tanger Med vs the local commercial decline.
+    5. Module 4 (Future): Interactive data on demographics and a matrix of fiscal incentives for digital transition.
+    RATIONALE: This structure breaks down the complex geopolitical situation into "investigation folders" that match the requested documentary script structure, making facts easily exportable for narration.
+-->
+
+<!-- Visualization & Content Choices:
+    - Crisis Comparison: Bar Chart (Chart.js) comparing 2021 vs 2026 volumes to illustrate the "hybrid threat" pattern.
+    - Tanger Med Impact: Line Chart (Chart.js) showing the port's logistical hegemony.
+    - Historical Milestones: Interactive vertical list using Tailwind CSS with JS state toggles to explore treaties.
+    - Fiscal Perks: Grid-based cards with hover effects to detail the 12.5% IS, 60% IRPF, etc.
+    - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+-->
+
+    <header class="sticky top-0 z-50 bg-white/90 border-b border-gray-200 px-6 py-4 flex flex-wrap justify-between items-center">
+        <div class="flex items-center gap-2">
+            <span class="w-8 h-8 bg-red-700 rounded flex items-center justify-center text-white font-bold text-xl">C</span>
+            <h1 class="text-xl font-bold tracking-tight">Expediente Ceuta <span class="text-red-700">2026</span></h1>
+        </div>
+        <nav class="flex gap-6 text-sm font-semibold uppercase tracking-widest text-gray-500 overflow-x-auto whitespace-nowrap pt-2 sm:pt-0">
+            <span onclick="showTab('crisis')" id="nav-crisis" class="nav-link active">1. Crisis 2026</span>
+            <span onclick="showTab('historia')" id="nav-historia" class="nav-link">2. Soberanía</span>
+            <span onclick="showTab('economia')" id="nav-economia" class="nav-link">3. Asfixia</span>
+            <span onclick="showTab('futuro')" id="nav-futuro" class="nav-link">4. Futuro</span>
+        </nav>
+    </header>
+
+    <main class="max-w-6xl mx-auto p-4 md:p-8">
+
+        <!-- SECCIÓN 1: CRISIS 2026 -->
+        <section id="crisis" class="tab-content active">
+            <div class="mb-10">
+                <p class="text-gray-600 mb-4 italic">Introducción del módulo: Este apartado documenta el colapso fronterizo de julio de 2026, analizando el uso de la migración como arma de guerra híbrida y las tensiones del eje internacional Washington-Tel Aviv-Rabat.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <div class="glass-card p-6 border-l-4 border-red-700">
+                        <h3 class="text-sm font-bold text-gray-500 uppercase">Volumen de Entradas (Jul 2026)</h3>
+                        <p class="text-4xl font-bold mt-2">72.000</p>
+                        <p class="text-xs text-gray-400 mt-1">Personas en 48 horas (30-31 de julio)</p>
+                    </div>
+                    <div class="glass-card p-6 border-l-4 border-gray-800">
+                        <h3 class="text-sm font-bold text-gray-500 uppercase">Costo Humano (Letalidad)</h3>
+                        <p class="text-4xl font-bold mt-2">142</p>
+                        <p class="text-xs text-gray-400 mt-1">Estimación total de fallecidos (confirmados)</p>
+                    </div>
+                    <div class="glass-card p-6 border-l-4 border-blue-600">
+                        <h3 class="text-sm font-bold text-gray-500 uppercase">Retornos Operativos</h3>
+                        <p class="text-4xl font-bold mt-2">70.000</p>
+                        <p class="text-xs text-gray-400 mt-1">Ejecutados en tiempo récord (48h)</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div class="glass-card p-6">
+                        <h3 class="text-xl font-bold mb-6">Comparativa de Crisis: Amenaza Híbrida</h3>
+                        <div class="chart-container">
+                            <canvas id="chartCrisis"></canvas>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-4">La crisis de 2026 superó en un 500% el volumen de entradas de 2021, evidenciando una mayor capacidad de movilización táctica por parte de las redes del norte de África.</p>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                            <h4 class="font-bold text-red-700 flex items-center gap-2 mb-2">
+                                <span class="text-xl">⚠️</span> El Detonante: Desinformación Táctica
+                            </h4>
+                            <p class="text-sm text-gray-700">El **29 de junio de 2026**, el Tribunal Supremo dictó una sentencia sobre menores. Actores en la zona gris difundieron en redes sociales una interpretación falsa: *"Cualquiera que cruce a nado tendrá regularización garantizada"*. Esto generó el efecto llamada masivo desde Fnideq.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                            <h4 class="font-bold text-blue-800 flex items-center gap-2 mb-2">
+                                <span class="text-xl">🌐</span> El Eje Internacional (EE.UU. - Israel)
+                            </h4>
+                            <p class="text-sm text-gray-700 mb-3">La postura de España en Palestina (embargo de armas y reconocimiento del Estado) generó fricciones con Tel Aviv y Washington.</p>
+                            <ul class="text-xs space-y-2 text-gray-600">
+                                <li class="bg-gray-50 p-2 rounded"><strong>Cita Trump (Junio 2026):</strong> "Pronto aprenderán... igual de pronto que cuando renunciaron a Cuba y Filipinas".</li>
+                                <li class="bg-gray-50 p-2 rounded"><strong>Análisis Inteligencia Israelí:</strong> España ha generado una "fisura estratégica" que Marruecos está explotando con respaldo tecnológico de Israel.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: SOBERANÍA E HISTORIA -->
+        <section id="historia" class="tab-content">
+            <div class="mb-10">
+                <p class="text-gray-600 mb-4 italic">Introducción del módulo: Este bloque desmonta el argumento de "ciudad ocupada" mediante la verificación de tratados internacionales y la línea de tiempo de soberanía española que precede en siglos a la independencia de Marruecos.</p>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10">
+                    <div onclick="updateHistory(1415)" class="cursor-pointer glass-card p-4 text-center hover:bg-gray-100 transition shadow-md border-t-4 border-red-700">
+                        <span class="block text-2xl font-bold">1415</span>
+                        <span class="text-xs uppercase font-semibold">Conquista Lusa</span>
+                    </div>
+                    <div onclick="updateHistory(1640)" class="cursor-pointer glass-card p-4 text-center hover:bg-gray-100 transition shadow-md border-t-4 border-gray-800">
+                        <span class="block text-2xl font-bold">1640</span>
+                        <span class="text-xs uppercase font-semibold">Voto Lealtad</span>
+                    </div>
+                    <div onclick="updateHistory(1668)" class="cursor-pointer glass-card p-4 text-center hover:bg-gray-100 transition shadow-md border-t-4 border-red-700">
+                        <span class="block text-2xl font-bold">1668</span>
+                        <span class="text-xs uppercase font-semibold">Tratado Lisboa</span>
+                    </div>
+                    <div onclick="updateHistory(1860)" class="cursor-pointer glass-card p-4 text-center hover:bg-gray-100 transition shadow-md border-t-4 border-gray-800">
+                        <span class="block text-2xl font-bold">1860</span>
+                        <span class="text-xs uppercase font-semibold">Wad-Ras</span>
+                    </div>
+                </div>
+
+                <div id="history-detail" class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 min-h-[300px]">
+                    <h2 id="history-title" class="text-3xl font-bold text-gray-800 mb-4 italic uppercase tracking-tighter">Selecciona un hito</h2>
+                    <div id="history-text" class="text-lg text-gray-700 leading-relaxed max-w-3xl">
+                        Haz clic en los años superiores para ver la evidencia documental de la soberanía.
+                    </div>
+                    <div id="history-fact" class="mt-8 p-4 bg-red-50 border-l-4 border-red-700 text-sm font-mono text-red-900 hidden">
+                        // DOCUMENTO DE REFERENCIA ENCONTRADO
+                    </div>
+                </div>
+
+                <div class="mt-8 p-6 bg-gray-900 text-white rounded-xl">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <span class="text-red-500">⚠</span> La Falacia del Protectorado
+                    </h3>
+                    <p class="text-gray-300">
+                        Es fundamental para el guion aclarar que **Ceuta nunca formó parte del Protectorado (1912-1956)**. Los tratados franco-españoles excluyeron explícitamente a las Plazas de Soberanía porque no eran territorio marroquí a proteger, sino España innegable. La independencia de Marruecos en 1956 no afectó jurídicamente a la ciudad.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: ASFIXIA ECONÓMICA -->
+        <section id="economia" class="tab-content">
+            <div class="mb-10">
+                <p class="text-gray-600 mb-4 italic">Introducción del módulo: Análisis del estrangulamiento económico diseñado por Rabat. Desde el fin del comercio atípico en 2019 hasta la hegemonía logística del complejo Tanger Med.</p>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="glass-card p-6">
+                            <h3 class="text-xl font-bold mb-4">El Fin del "Comercio Atípico"</h3>
+                            <p class="text-sm text-gray-700 mb-4">En octubre de 2019, Marruecos cerró unilateralmente el paso de porteadoras. No fue un acto fiscal, sino el inicio del bloqueo total. Rabat prohíbe hoy cualquier exportación terrestre desde España hacia Marruecos vía Ceuta.</p>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-red-50 p-3 rounded">
+                                    <span class="block text-xs font-bold text-red-700 uppercase">Impacto Comercial</span>
+                                    <span class="text-xl font-bold">-70%</span>
+                                    <span class="text-[10px] block">Ventas minoristas fronterizas</span>
+                                </div>
+                                <div class="bg-gray-50 p-3 rounded">
+                                    <span class="block text-xs font-bold text-gray-700 uppercase">Aduana Melilla</span>
+                                    <span class="text-xl font-bold">Cerrada</span>
+                                    <span class="text-[10px] block">Desde Agosto 2018</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="glass-card p-6 bg-slate-50">
+                            <h3 class="text-xl font-bold mb-2">Hipodependencia Pública</h3>
+                            <p class="text-sm text-gray-600">Ante el cerco comercial, Ceuta ha mutado en una economía de salarios públicos. Defensa, Fuerzas de Seguridad y Sanidad sostienen el consumo interno.</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6">
+                        <h3 class="text-xl font-bold mb-6">Hegemonía de Tanger Med (2025)</h3>
+                        <div class="chart-container">
+                            <canvas id="chartTanger"></canvas>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-4 text-center">Datos: 11,1 Millones de TEU en 2025. Un puerto diseñado para fagocitar la viabilidad de Ceuta y Algeciras.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: FUTURO Y FISCALIDAD -->
+        <section id="futuro" class="tab-content">
+            <div class="mb-10">
+                <p class="text-gray-600 mb-4 italic">Introducción del módulo: El nuevo paradigma ceutí. Ante la imposibilidad de comerciar con el sur, la ciudad gira 180 grados hacia el norte mediante un blindaje fiscal agresivo para captar nómadas digitales y sector iGaming.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                    <div class="p-6 bg-white rounded-xl border border-gray-100 shadow-sm">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                            <span class="text-blue-600">📊</span> Reto Demográfico
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="flex justify-between items-center border-b pb-2">
+                                <span class="text-gray-600">Población Estructural</span>
+                                <span class="font-bold">83.000 hab.</span>
+                            </li>
+                            <li class="flex justify-between items-center border-b pb-2">
+                                <span class="text-gray-600">Densidad</span>
+                                <span class="font-bold">4.368 hab/km²</span>
+                            </li>
+                            <li class="flex justify-between items-center border-b pb-2">
+                                <span class="text-gray-600">Desempleo Estructural</span>
+                                <span class="font-bold text-red-700">> 25%</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="p-6 bg-blue-900 text-white rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">Propuesta de Blindaje Institucional</h3>
+                        <div class="space-y-3">
+                            <div class="flex gap-3">
+                                <span class="w-6 h-6 rounded-full bg-blue-700 flex items-center justify-center text-xs">1</span>
+                                <p class="text-sm">Entrada en la <strong>Unión Aduanera</strong> plena.</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <span class="w-6 h-6 rounded-full bg-blue-700 flex items-center justify-center text-xs">2</span>
+                                <p class="text-sm">Supresión de la Excepción Schengen (frontera UE real).</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <span class="w-6 h-6 rounded-full bg-blue-700 flex items-center justify-center text-xs">3</span>
+                                <p class="text-sm">Estatus de <strong>Región Ultraperiférica (RUP)</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-6 text-center">El Marco Fiscal más Agresivo de Europa</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="glass-card p-4 border-t-4 border-green-500 hover:scale-105 transition">
+                        <span class="text-xs font-bold text-gray-500 block">SOCIEDADES (IS)</span>
+                        <span class="text-3xl font-bold">12.5%</span>
+                        <p class="text-[10px] mt-2 leading-tight">Frente al 25% general. Bonificación del 50% en cuota.</p>
+                    </div>
+                    <div class="glass-card p-4 border-t-4 border-green-500 hover:scale-105 transition">
+                        <span class="text-xs font-bold text-gray-500 block">IRPF TRABAJADORES</span>
+                        <span class="text-3xl font-bold">60%</span>
+                        <p class="text-[10px] mt-2 leading-tight">Bonificación sobre rentas del trabajo. Atrae talento nómada.</p>
+                    </div>
+                    <div class="glass-card p-4 border-t-4 border-green-500 hover:scale-105 transition">
+                        <span class="text-xs font-bold text-gray-500 block">CONSUMO (IPSI)</span>
+                        <span class="text-3xl font-bold">0.5%</span>
+                        <p class="text-[10px] mt-2 leading-tight">Tipo superreducido para servicios digitales y publicidad.</p>
+                    </div>
+                    <div class="glass-card p-4 border-t-4 border-green-500 hover:scale-105 transition">
+                        <span class="text-xs font-bold text-gray-500 block">iGAMING TAX</span>
+                        <span class="text-3xl font-bold">10%</span>
+                        <p class="text-[10px] mt-2 leading-tight">Reducción del 50% del impuesto sobre actividades del juego.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 border-t border-gray-200 mt-20 py-8 px-6 text-center text-gray-500 text-xs">
+        <p>Informe Geopolítico Ceuta 2026 | Desarrollado para Investigación Periodística de Microdocumentales</p>
+        <p class="mt-2">Fuentes: Observatorio Ceuta y Melilla, CNI, Ministerio del Interior, Sonia Moreno (2025).</p>
+    </footer>
+
+    <script>
+        // --- NAVEGACIÓN ---
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            document.getElementById('nav-' + tabId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // --- HISTORIA INTERACTIVA ---
+        const historyData = {
+            1415: {
+                title: "21 de Agosto de 1415: Conquista Portuguesa",
+                text: "Juan I de Portugal conquista la ciudad a la dinastía meriní. Ceuta se convierte en el primer gran enclave europeo en África, iniciando la era de los descubrimientos. Es soberanía europea 500 años antes de la descolonización de 1956.",
+                fact: "TÍTULO FUNDACIONAL: Expedición de Enrique el Navegante."
+            },
+            1640: {
+                title: "Diciembre de 1640: La Lealtad a España",
+                text: "Tras la rebelión de Portugal contra Felipe IV, los ciudadanos de Ceuta votan de forma asamblearia no unirse a la independencia lusa. Eligen permanecer como territorio de la Monarquía Hispánica, integrándose plenamente en la estructura española.",
+                fact: "VOLUNTAD POPULAR: Única plaza portuguesa que no secundó la restauración."
+            },
+            1668: {
+                title: "13 de Febrero de 1668: Tratado de Lisboa",
+                text: "Portugal reconoce formalmente la independencia de España y cede de manera perpetua e irrevocable la soberanía de Ceuta a la Corona española. Este tratado tiene plena validez en el Derecho Internacional moderno.",
+                fact: "JURISPRUDENCIA: Reconocimiento oficial de soberanía por Tratado Internacional."
+            },
+            1860: {
+                title: "26 de Abril de 1860: Tratado de Wad-Ras",
+                text: "Tras la Guerra de África, el Sultán Muhammad ibn 'Abd al Rahman firma la paz. Se reconoce la ampliación territorial de Ceuta hasta los límites actuales de Sierra Bullones y la bahía de Benzú. Marruecos aceptó estos límites por escrito.",
+                fact: "DELIMITACIÓN: Línea fronteriza de Sierra Bullones establecida."
+            }
+        };
+
+        function updateHistory(year) {
+            const data = historyData[year];
+            const content = document.getElementById('history-detail');
+            content.style.opacity = '0';
+            
+            setTimeout(() => {
+                document.getElementById('history-title').innerText = data.title;
+                document.getElementById('history-text').innerText = data.text;
+                const fact = document.getElementById('history-fact');
+                fact.innerText = data.fact;
+                fact.classList.remove('hidden');
+                content.style.opacity = '1';
+                content.classList.add('sidebar-indicator');
+            }, 200);
+        }
+
+        // --- GRÁFICOS ---
+        function initCharts() {
+            // Chart Crisis 2021 vs 2026
+            const ctxCrisis = document.getElementById('chartCrisis').getContext('2d');
+            new Chart(ctxCrisis, {
+                type: 'bar',
+                data: {
+                    labels: ['Mayo 2021 (B. Ghali)', 'Julio 2026 (Crisis actual)'],
+                    datasets: [{
+                        label: 'Entradas Irregulares Estimadas',
+                        data: [12000, 72000],
+                        backgroundColor: ['#b2bec3', '#c0392b'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { display: false } }
+                    }
+                }
+            });
+
+            // Chart Tanger Med
+            const ctxTanger = document.getElementById('chartTanger').getContext('2d');
+            new Chart(ctxTanger, {
+                type: 'line',
+                data: {
+                    labels: ['2019', '2021', '2023', '2025'],
+                    datasets: [{
+                        label: 'Millones de TEU (Contenedores)',
+                        data: [4.8, 7.1, 9.2, 11.1],
+                        borderColor: '#0984e3',
+                        backgroundColor: 'rgba(9, 132, 227, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: { tooltip: { mode: 'index', intersect: false } },
+                    scales: {
+                        y: { 
+                            beginAtZero: true,
+                            title: { display: true, text: 'Tráfico TEU (Millones)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        window.onload = initCharts;
+    </script>
+</body>
+</html>
