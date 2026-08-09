@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eclipse Solar Total España 2026 | Análisis Técnico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --solar-cream: #FDFBF7;
+            --solar-gold: #D4AF37;
+            --solar-charcoal: #2D2D2D;
+            --solar-amber: #B45309;
+        }
+        body {
+            background-color: var(--solar-cream);
+            color: var(--solar-charcoal);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 500px;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .nav-link.active {
+            border-bottom: 2px solid var(--solar-gold);
+            color: var(--solar-amber);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+<!-- Chosen Palette: Ocaso Ibérico (Cremas, oro viejo y carbón profundo para máxima legibilidad científica) -->
+
+<!-- Application Structure Plan: 
+    1. Hero: Introducción al fenómeno y el "Trío Ibérico".
+    2. Explorador Cronológico: Dashboard interactivo con tabla filtrable y gráfico de duraciones por ciudad para visualizar el avance de la umbra.
+    3. Desafío Atmosférico: Explicación visual de la extinción y refracción por la baja altura del sol.
+    4. Sinergia Perseidas: Sección sobre la convergencia astronómica única.
+    5. Memoria 1905: Comparativa histórica mediante matriz de datos.
+    6. Protocolo Clínico: Guía interactiva de seguridad y validación ISO.
+    Elegido por su capacidad de segmentar datos complejos en módulos de aprendizaje progresivo.
+-->
+
+<!-- Visualization & Content Choices: 
+    - Gráfico de Barras (Chart.js): Duración de la totalidad por capital para comparar el rendimiento de observación.
+    - Gráfico de Líneas (Chart.js): Descenso de la elevación solar vs avance geográfico para justificar el reto técnico.
+    - Tabla Dinámica (JS): Datos de efemérides con buscador.
+    - Matriz Comparativa (HTML/CSS): 1905 vs 2026.
+    - Checklist Interactivo (JS): Validación de gafas ISO 12312-2.
+    - Confirmación: NO se usa SVG ni Mermaid. Todo se renderiza vía Canvas o HTML Estructurado.
+-->
+
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+<nav class="sticky top-0 z-50 w-full bg-white/90 border-b border-gray-200 py-4 px-6 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        <h1 class="font-bold text-xl tracking-tight text-amber-900 uppercase">Eclipse 2026 <span class="font-light">| Dossier Técnico</span></h1>
+        <div class="flex flex-wrap justify-center gap-6 text-sm font-medium">
+            <a href="#cronograma" class="nav-link hover:text-amber-700 transition">Cronología</a>
+            <a href="#tecnico" class="nav-link hover:text-amber-700 transition">Reto Óptico</a>
+            <a href="#perseidas" class="nav-link hover:text-amber-700 transition">Perseidas</a>
+            <a href="#historia" class="nav-link hover:text-amber-700 transition">Historia</a>
+            <a href="#seguridad" class="nav-link hover:text-amber-700 transition">Seguridad</a>
+        </div>
+    </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- Sección Introductoria -->
+    <header class="mb-20 text-center max-w-3xl mx-auto">
+        <div class="inline-block px-4 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-widest mb-4">Mecánica Celeste Saros 126</div>
+        <h2 class="text-4xl font-extrabold text-gray-900 mb-6 leading-tight">El Eclipse Solar Total del 12 de Agosto de 2026</h2>
+        <p class="text-lg text-gray-600">
+            España se convertirá en el epicentro mundial de la observación astronómica, inaugurando el "Trío Ibérico de Eclipses". Este evento no es solo un espectáculo visual, sino un reto logístico y científico de primer orden dictado por la precisión orbital del ciclo Saros.
+        </p>
+    </header>
+
+    <!-- Bloque 1: Datos Orbitales y Cronología -->
+    <section id="cronograma" class="mb-24 scroll-mt-24">
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 italic">1. Dinámica de la Umbra y Efemérides Locales</h3>
+            <p class="text-gray-600 mb-8">
+                Esta sección analiza el recorrido de la sombra lunar desde su entrada en Galicia hasta su ocaso en Baleares. Los datos reflejan la cinemática terrestre: la umbra viaja a velocidades hipersónicas mientras el sol desciende rápidamente hacia el horizonte oeste.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
+                <div class="chart-container">
+                    <canvas id="duracionChart"></canvas>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-amber-50 p-6 rounded-xl border border-amber-100">
+                        <h4 class="font-bold text-amber-900 mb-2">Máximo del Eclipse (Saros 126)</h4>
+                        <ul class="text-sm space-y-2 text-amber-800">
+                            <li><strong>Hora Clímax:</strong> 19:46 CEST (Océano Atlántico)</li>
+                            <li><strong>Ancho de Banda:</strong> 293,9 Kilómetros</li>
+                            <li><strong>Velocidad de Sombra:</strong> ~3.268 km/h</li>
+                            <li><strong>Duración Max (España):</strong> ~1m 50s (Burgos/Oviedo)</li>
+                        </ul>
+                    </div>
+                    <p class="text-sm text-gray-500 italic leading-relaxed">
+                        Nota: La totalidad avanzada a unos 44 km por minuto, lo que imposibilita la persecución terrestre del fenómeno.
+                    </p>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto rounded-lg border border-gray-200">
+                <table class="w-full text-sm text-left text-gray-500">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-4">Localidad</th>
+                            <th class="px-6 py-4">Comunidad</th>
+                            <th class="px-6 py-4 text-center">Clímax (CEST)</th>
+                            <th class="px-6 py-4 text-center">Duración Umbral</th>
+                            <th class="px-6 py-4 text-center">Elevación Sol</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cityTableBody">
+                        <!-- Generado por JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bloque 2: El Reto Técnico -->
+    <section id="tecnico" class="mb-24 scroll-mt-24">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-1 space-y-6">
+                <h3 class="text-2xl font-bold text-gray-800 italic">2. El Reto Técnico de la Observación</h3>
+                <p class="text-gray-600">
+                    La baja elevación solar (de 12° a 2°) introduce vectores físicos críticos: la luz debe atravesar hasta 40 veces más masa de aire que en el cenit.
+                </p>
+                <div class="space-y-4">
+                    <div class="p-4 bg-white border-l-4 border-amber-500 shadow-sm">
+                        <h5 class="font-bold text-sm uppercase">Extinción de Rayleigh</h5>
+                        <p class="text-xs text-gray-500">Dispersión de ondas cortas (azules); predominio de tonos rojos y atenuación drástica de la corona.</p>
+                    </div>
+                    <div class="p-4 bg-white border-l-4 border-amber-500 shadow-sm">
+                        <h5 class="font-bold text-sm uppercase">Refracción Diferencial</h5>
+                        <p class="text-xs text-gray-500">Achatamiento vertical del disco solar y desplazamiento aparente de medio grado sobre el horizonte.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-2 bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+                <h4 class="font-bold text-gray-800 mb-6 text-center">Pronóstico de Nubosidad (AEMET Historical Data)</h4>
+                <div class="chart-container">
+                    <canvas id="nubesChart"></canvas>
+                </div>
+                <p class="text-xs text-center text-gray-400 mt-6 italic">
+                    La probabilidad de éxito aumenta drásticamente en el Valle del Ebro y la Meseta Norte.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bloque 3: Convergencia Perseidas -->
+    <section id="perseidas" class="mb-24 scroll-mt-24 bg-gray-900 text-white p-12 rounded-3xl relative overflow-hidden">
+        <div class="relative z-10">
+            <h3 class="text-2xl font-bold mb-6 italic text-amber-400">3. Sinergia: Eclipses y Perseidas</h3>
+            <p class="text-gray-300 max-w-2xl mb-8 leading-relaxed">
+                La fase de Luna Nueva necesaria para el eclipse permite, por primera vez en la era moderna, la posibilidad de capturar meteoros (Perseidas) durante la oscuridad diurna de la totalidad. La caída súbita de radiación simula un crepúsculo profundo capaz de revelar bólidos brillantes de 59 km/s.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white/10 p-6 rounded-xl border border-white/10">
+                    <span class="block text-3xl mb-2">☄️</span>
+                    <h5 class="font-bold text-amber-200">Perlas de Baily</h5>
+                    <p class="text-xs text-gray-400 mt-2">Luz filtrada por valles lunares justo antes de la totalidad.</p>
+                </div>
+                <div class="bg-white/10 p-6 rounded-xl border border-white/10">
+                    <span class="block text-3xl mb-2">💍</span>
+                    <h5 class="font-bold text-amber-200">Anillo de Diamante</h5>
+                    <p class="text-xs text-gray-400 mt-2">Último glóbulo de luz fotosférica antes del clímax.</p>
+                </div>
+                <div class="bg-white/10 p-6 rounded-xl border border-white/10">
+                    <span class="block text-3xl mb-2">🎞️</span>
+                    <h5 class="font-bold text-amber-200">Shadow Bands</h5>
+                    <p class="text-xs text-gray-400 mt-2">Ondas de luz refractadas por la turbulencia troposférica.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bloque 4: Memoria Histórica -->
+    <section id="historia" class="mb-24 scroll-mt-24">
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8 italic text-center">4. Memoria Histórica: 1905 vs 2026</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-gray-200 rounded-xl overflow-hidden border border-gray-200">
+                <div class="bg-amber-50 p-8">
+                    <h4 class="font-bold text-amber-900 text-xl mb-4">Eclipse de 1905</h4>
+                    <ul class="space-y-3 text-sm text-amber-800">
+                        <li><strong>Elevación Solar:</strong> ~55° (Mediodía)</li>
+                        <li><strong>Duración Max:</strong> 3 min 45 s</li>
+                        <li><strong>Tecnología:</strong> Placas de vidrio y telégrafos</li>
+                        <li><strong>Objetivo:</strong> Descubrir el planeta "Vulcano"</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8">
+                    <h4 class="font-bold text-gray-900 text-xl mb-4">Eclipse de 2026</h4>
+                    <ul class="space-y-3 text-sm text-gray-600">
+                        <li><strong>Elevación Solar:</strong> ~12° a 2° (Ocaso)</li>
+                        <li><strong>Duración Max:</strong> 1 min 50 s</li>
+                        <li><strong>Tecnología:</strong> CMOS, GNSS y Modelos Digitales</li>
+                        <li><strong>Objetivo:</strong> Estructura coronal y heliofísica</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bloque 5: Seguridad Oftalmológica -->
+    <section id="seguridad" class="mb-24 scroll-mt-24">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8 italic text-center">5. Protocolo de Seguridad Oftalmológica</h3>
+            <div class="bg-red-50 border-t-4 border-red-500 p-8 rounded-b-xl shadow-lg mb-12">
+                <div class="flex items-start gap-6">
+                    <div class="hidden sm:block text-4xl">⚠️</div>
+                    <div>
+                        <h4 class="text-red-900 font-bold text-lg mb-2">Retinopatía Solar: El Peligro Silencioso</h4>
+                        <p class="text-red-800 text-sm leading-relaxed">
+                            La retina carece de terminaciones nerviosas de dolor. El daño fotoquímico y térmico puede ocurrir en segundos sin que el observador lo note. Los efectos (escotomas, ceguera parcial) suelen aparecer 12-24 horas después.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h5 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <span>✅</span> Certificación ISO 12312-2:2015
+                    </h5>
+                    <ul class="text-xs space-y-3 text-gray-600">
+                        <li class="flex items-center gap-2"><input type="checkbox" checked disabled> Densidad Óptica ND5 (Bloqueo 99,999%)</li>
+                        <li class="flex items-center gap-2"><input type="checkbox" checked disabled> Marcado CE y Trazabilidad del fabricante</li>
+                        <li class="flex items-center gap-2"><input type="checkbox" checked disabled> Sin arañazos o microperforaciones</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h5 class="font-bold text-red-600 mb-4 flex items-center gap-2">
+                        <span>❌</span> Métodos Prohibidos
+                    </h5>
+                    <p class="text-xs text-gray-500 mb-4 italic leading-tight">
+                        Peligro crítico: Reducen el brillo pero dejan pasar la radiación infrarroja letal.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-gray-100 rounded text-[10px] uppercase font-bold text-gray-400">Radiografías</span>
+                        <span class="px-2 py-1 bg-gray-100 rounded text-[10px] uppercase font-bold text-gray-400">Gafas de Sol</span>
+                        <span class="px-2 py-1 bg-gray-100 rounded text-[10px] uppercase font-bold text-gray-400">CDs/DVDs</span>
+                        <span class="px-2 py-1 bg-gray-100 rounded text-[10px] uppercase font-bold text-gray-400">Cristal Ahumado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-gray-100 py-12 border-t border-gray-200">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+        <p class="text-sm text-gray-500">
+            Dossier Analítico basado en datos del Centro Nacional de Información Geográfica y CITE.
+        </p>
+        <p class="text-xs text-gray-400 mt-2 italic">
+            © 2026 Investigación y Desarrollo. Trío de Eclipses Ibérico.
+        </p>
+    </div>
+</footer>
+
+<script>
+    // Datos de ciudades
+    const cityData = [
+        { name: "A Coruña", region: "Galicia", time: "20:27:37", duration: 108, elev: 12 },
+        { name: "Oviedo", region: "Asturias", time: "20:27:37", duration: 110, elev: 10.5 },
+        { name: "Burgos", region: "Castilla y León", time: "20:29:11", duration: 105, elev: 7.5 },
+        { name: "Logroño", region: "La Rioja", time: "20:29:07", duration: 104, elev: 7 },
+        { name: "Zaragoza", region: "Aragón", time: "20:29:00", duration: 60, elev: 5 },
+        { name: "Castellón", region: "C. Valenciana", time: "20:32:01", duration: 94, elev: 3.5 },
+        { name: "Palma", region: "Baleares", time: "20:31:48", duration: 96, elev: 2 }
+    ];
+
+    // Cargar tabla
+    const tableBody = document.getElementById('cityTableBody');
+    cityData.forEach(city => {
+        const row = `
+            <tr class="bg-white border-b hover:bg-amber-50/50 transition">
+                <td class="px-6 py-4 font-bold text-gray-900">${city.name}</td>
+                <td class="px-6 py-4 text-xs">${city.region}</td>
+                <td class="px-6 py-4 text-center font-mono">${city.time}</td>
+                <td class="px-6 py-4 text-center">${Math.floor(city.duration/60)}m ${city.duration%60}s</td>
+                <td class="px-6 py-4 text-center">${city.elev}°</td>
+            </tr>
+        `;
+        tableBody.innerHTML += row;
+    });
+
+    // Gráfico de Duración
+    const ctxDur = document.getElementById('duracionChart').getContext('2d');
+    new Chart(ctxDur, {
+        type: 'bar',
+        data: {
+            labels: cityData.map(c => c.name),
+            datasets: [{
+                label: 'Duración Totalidad (segundos)',
+                data: cityData.map(c => c.duration),
+                backgroundColor: '#D4AF37',
+                borderColor: '#B45309',
+                borderWidth: 1,
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                title: { display: true, text: 'Segundos de Oscuridad Total por Capital' }
+            },
+            scales: {
+                y: { beginAtZero: true, grid: { color: '#f3f3f3' } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+
+    // Gráfico de Nubes (Probabilidad Histórica Despejado)
+    const ctxClouds = document.getElementById('nubesChart').getContext('2d');
+    new Chart(ctxClouds, {
+        type: 'line',
+        data: {
+            labels: ['Coruña', 'Oviedo', 'Burgos', 'Zaragoza', 'Castellón', 'Palma'],
+            datasets: [{
+                label: '% Probabilidad Cielo Despejado',
+                data: [45, 52, 85, 88, 92, 95],
+                borderColor: '#3B82F6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 6,
+                pointBackgroundColor: '#3B82F6'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: { display: true, text: 'Estadística de Cielos Despejados (12 Agosto)' }
+            },
+            scales: {
+                y: { min: 0, max: 100, grid: { borderDash: [5, 5] } }
+            }
+        }
+    });
+
+    // Navegación activa
+    window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        let current = '';
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= sectionTop - 120) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Datos: Eclipse Solar 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        .gold-accent { color: #fbbf24; }
+        .bg-gold-accent { background-color: #fbbf24; }
+        .table-row:hover { background-color: #1e293b; transition: all 0.2s; }
+        .glow { box-shadow: 0 0 15px rgba(251, 191, 36, 0.3); }
+    </style>
+</head>
+<body class="antialiased p-4 md:p-8">
+
+    <div class="max-w-5xl mx-auto">
+        <!-- Cabecera -->
+        <header class="mb-10 text-center md:text-left border-b border-gray-700 pb-6">
+            <h3 class="text-sm font-bold tracking-widest text-gray-400 uppercase mb-2">España, Actualidad e Historia</h3>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">El Apagón de <span class="gold-accent">2026</span></h1>
+            <p class="text-lg text-gray-300 max-w-3xl">Monitorización de la trayectoria de la sombra umbral sobre la Península Ibérica. Datos oficiales de elevación solar y duración de la totalidad para el 12 de agosto de 2026.</p>
+        </header>
+
+        <!-- Alertas y Datos Clave -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="bg-slate-800 p-6 rounded-lg border-l-4 border-yellow-500 glow">
+                <h4 class="text-gray-400 text-xs font-bold uppercase mb-1">Cinemática Terrestre</h4>
+                <div class="text-2xl font-bold">3.268 km/h</div>
+                <div class="text-sm text-gray-400 mt-2">Velocidad de avance de la sombra lunar sobre España.</div>
+            </div>
+            <div class="bg-slate-800 p-6 rounded-lg border-l-4 border-yellow-500 glow">
+                <h4 class="text-gray-400 text-xs font-bold uppercase mb-1">Convergencia Astronómica</h4>
+                <div class="text-2xl font-bold">Perseidas</div>
+                <div class="text-sm text-gray-400 mt-2">El oscurecimiento coincide con el pico de la lluvia de meteoros.</div>
+            </div>
+            <div class="bg-red-900/40 p-6 rounded-lg border-l-4 border-red-500">
+                <h4 class="text-red-400 text-xs font-bold uppercase mb-1">Alerta de Seguridad</h4>
+                <div class="text-xl font-bold text-white">ISO 12312-2</div>
+                <div class="text-sm text-gray-300 mt-2">Protección ocular obligatoria. Riesgo extremo de retinopatía indolora.</div>
+            </div>
+        </div>
+
+        <!-- Tabla Interactiva -->
+        <div class="bg-slate-800 rounded-lg overflow-hidden shadow-xl mb-10 border border-slate-700">
+            <div class="p-4 bg-slate-900 border-b border-slate-700 flex justify-between items-center">
+                <h2 class="text-xl font-bold gold-accent">Cronograma Peninsular (Fase de Totalidad)</h2>
+                <span class="text-xs bg-slate-700 px-2 py-1 rounded text-gray-300">CEST (Hora local)</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-800 text-gray-400 text-xs uppercase tracking-wider border-b border-slate-700">
+                            <th class="p-4 font-semibold">Ciudad</th>
+                            <th class="p-4 font-semibold">Inicio Totalidad</th>
+                            <th class="p-4 font-semibold">Clímax</th>
+                            <th class="p-4 font-semibold">Duración</th>
+                            <th class="p-4 font-semibold">Elevación Sol</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b border-slate-700 table-row">
+                            <td class="p-4 font-bold">A Coruña (Galicia)</td>
+                            <td class="p-4 text-gray-300">20:27:00</td>
+                            <td class="p-4 text-white font-semibold">20:27:37</td>
+                            <td class="p-4"><span class="bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded">1 min 48 s</span></td>
+                            <td class="p-4 text-gray-400">12.0°</td>
+                        </tr>
+                        <tr class="border-b border-slate-700 table-row">
+                            <td class="p-4 font-bold">Oviedo (Asturias)</td>
+                            <td class="p-4 text-gray-300">20:27:01</td>
+                            <td class="p-4 text-white font-semibold">20:27:37</td>
+                            <td class="p-4"><span class="bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded">1 min 50 s</span></td>
+                            <td class="p-4 text-gray-400">10.5°</td>
+                        </tr>
+                        <tr class="border-b border-slate-700 table-row">
+                            <td class="p-4 font-bold">Santander (Cantabria)</td>
+                            <td class="p-4 text-gray-300">20:26:51</td>
+                            <td class="p-4 text-white font-semibold">20:27:26</td>
+                            <td class="p-4"><span class="bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded">1 min 04 s</span></td>
+                            <td class="p-4 text-gray-400">9.0°</td>
+                        </tr>
+                        <tr class="border-b border-slate-700 table-row">
+                            <td class="p-4 font-bold">Bilbao (País Vasco)</td>
+                            <td class="p-4 text-gray-300">20:27:00</td>
+                            <td class="p-4 text-white font-semibold">20:27:28</td>
+                            <td class="p-4"><span class="bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded">32 s</span></td>
+                            <td class="p-4 text-gray-400">8.5°</td>
+                        </tr>
+                        <tr class="border-b border-slate-700 table-row">
+                            <td class="p-4 font-bold">Burgos (Castilla y León)</td>
+                            <td class="p-4 text-gray-300">20:28:19</td>
+                            <td class="p-4 text-white font-semibold">20:29:11</td>
+                            <td class="p-4"><span class="bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded">1 min 45 s</span></td>
+                            <td class="p-4 text-gray-400">7.5°</td>
+                        </tr>
+                        <tr class="border-b border-slate-700 table-row">
+                            <td class="p-4 font-bold">Zaragoza (Aragón)</td>
+                            <td class="p-4 text-gray-300">20:28:30</td>
+                            <td class="p-4 text-white font-semibold">20:29:00</td>
+                            <td class="p-4"><span class="bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded">60 s</span></td>
+                            <td class="p-4 text-gray-400">5.0°</td>
+                        </tr>
+                        <tr class="border-b border-slate-700 table-row">
+                            <td class="p-4 font-bold">Castellón (C. Valenciana)</td>
+                            <td class="p-4 text-gray-300">20:31:14</td>
+                            <td class="p-4 text-white font-semibold">20:32:01</td>
+                            <td class="p-4"><span class="bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded">1 min 34 s</span></td>
+                            <td class="p-4 text-gray-400">3.5°</td>
+                        </tr>
+                        <tr class="border-b border-slate-700 table-row">
+                            <td class="p-4 font-bold">Palma (Islas Baleares)</td>
+                            <td class="p-4 text-gray-300">20:31:00</td>
+                            <td class="p-4 text-white font-semibold">20:31:48</td>
+                            <td class="p-4"><span class="bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded">1 min 36 s</span></td>
+                            <td class="p-4 text-gray-400">2.0°</td>
+                        </tr>
+                        <tr class="bg-slate-900/50">
+                            <td class="p-4 font-bold text-gray-500">Madrid / Barcelona</td>
+                            <td colspan="4" class="p-4 text-gray-500 italic text-center">Fase Parcial estricta (99.9%). Prohibida la observación sin filtro en todo momento.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="text-center text-xs text-gray-600 mt-8 pb-8">
+            <p>© 2026 Panel de Datos - España, Actualidad e Historia. Creado para divulgación científica.</p>
+        </div>
+    </div>
+
+</body>
+</html>

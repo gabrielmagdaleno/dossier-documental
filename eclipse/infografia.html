@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eclipse Solar Total 2026 - Dossier Técnico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        .chart-container { position: relative; width: 100%; max-width: 700px; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
+        .data-card { background: rgba(30, 41, 59, 0.7); border: 1px solid #334155; border-radius: 12px; transition: transform 0.2s; }
+        .data-card:hover { transform: translateY(-4px); border-color: #f59e0b; }
+        .gradient-text { background: linear-gradient(90deg, #f59e0b, #ef4444); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .iso-badge { border-left: 4px solid #f59e0b; padding-left: 1rem; }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+<!-- Palette: Energetic Amber (Amber #f59e0b, Orange #f97316, Slate #1e293b, Red #ef4444) -->
+
+<!-- 
+Narrative Plan:
+1. Introduction: Context of the 121-year wait and the "Iberian Trio".
+2. Section 1: Chronology. Visualization of duration across major cities to show the umbra's speed and path.
+3. Section 2: Technical Challenge. Analysis of low solar altitude and atmospheric extinction.
+4. Section 3: Convergence. The rarity of the Perseids overlap.
+5. Section 4: History. 1905 vs 2026 comparison in scientific capabilities.
+6. Section 5: Safety. Biophysical impact and certification checklists.
+-->
+
+<!-- 
+Visualization Selection:
+- City Duration: Bar Chart (Chart.js) - Compare categories. Justification: Best for discrete city comparisons.
+- Solar Elevation: Line Chart (Chart.js) - Show change over location/time. Justification: Visualizes the decline towards sunset.
+- Process Flow: HTML/CSS Grid - Organize steps. Justification: Avoids SVG while showing logical safety steps.
+- Comparison: Table/Card Layout - Compare historical data. Justification: High readability for structured metrics.
+-->
+
+<header class="relative py-20 px-6 text-center border-b border-slate-800">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">España <span class="gradient-text">2026</span></h1>
+        <p class="text-xl md:text-2xl text-slate-400 font-light leading-relaxed">
+            Un análisis técnico exhaustivo sobre el primer eclipse solar total en la España peninsular desde 1905. Mecánica celeste, retos de observación y protocolos de seguridad pública.
+        </p>
+    </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
+
+    <section id="chronology">
+        <div class="mb-10 text-center">
+            <h2 class="text-3xl font-bold mb-4">1. Datos Orbitales y Cronología</h2>
+            <p class="text-slate-400 max-w-2xl mx-auto">
+                La sombra lunar (umbra) entrará en la península por Galicia a las 20:27 CEST, barriendo el territorio hacia el sureste en una franja de aproximadamente 290 km de ancho.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="data-card p-6">
+                <h3 class="text-xl font-semibold mb-6 text-amber-500">Duración de la Totalidad por Ciudad</h3>
+                <div class="chart-container">
+                    <canvas id="durationChart"></canvas>
+                </div>
+            </div>
+            <div class="space-y-6">
+                <div class="data-card p-6">
+                    <h4 class="font-bold text-slate-200">Parámetros Críticos del Evento</h4>
+                    <div class="grid grid-cols-2 gap-4 mt-4">
+                        <div class="p-3 bg-slate-800/50 rounded-lg">
+                            <span class="block text-xs text-slate-500 uppercase">Velocidad Umbra</span>
+                            <span class="text-lg font-bold text-amber-400">~3,200 km/h</span>
+                        </div>
+                        <div class="p-3 bg-slate-800/50 rounded-lg">
+                            <span class="block text-xs text-slate-500 uppercase">Ancho de Banda</span>
+                            <span class="text-lg font-bold text-amber-400">293 km</span>
+                        </div>
+                        <div class="p-3 bg-slate-800/50 rounded-lg">
+                            <span class="block text-xs text-slate-500 uppercase">Serie Saros</span>
+                            <span class="text-lg font-bold text-amber-400">126</span>
+                        </div>
+                        <div class="p-3 bg-slate-800/50 rounded-lg">
+                            <span class="block text-xs text-slate-500 uppercase">Tipo</span>
+                            <span class="text-lg font-bold text-amber-400">Total</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-400 italic">
+                    La totalidad cruzará ciudades clave como Oviedo, Burgos, Zaragoza y Castellón, finalizando en las Islas Baleares coincidiendo con el ocaso.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="technical-challenge">
+        <div class="mb-10 text-center">
+            <h2 class="text-3xl font-bold mb-4">2. El Reto Técnico de Observación</h2>
+            <p class="text-slate-400 max-w-2xl mx-auto">
+                A diferencia de los eclipses de mediodía, el de 2026 ocurre a escasos grados sobre el horizonte. Esto introduce variables atmosféricas complejas.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="space-y-6">
+                <div class="p-6 bg-amber-500/10 border border-amber-500/20 rounded-xl">
+                    <h3 class="text-xl font-bold text-amber-500 mb-3">Extinción Atmosférica</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Debido a la baja elevación (entre 12° en Galicia y 2° en Palma), la luz debe atravesar una mayor densidad de atmósfera. Esto provocará una corona solar de tonos más rojizos y una reducción drástica en el brillo aparente.
+                    </p>
+                </div>
+                <div class="p-6 bg-slate-800 rounded-xl">
+                    <h3 class="text-xl font-bold text-slate-200 mb-3">Requisitos Topográficos</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Es imperativo contar con un horizonte oeste-noroeste completamente despejado. Cualquier obstáculo físico (montañas, edificios) a baja altura anulará la visión de la totalidad.
+                    </p>
+                </div>
+            </div>
+            <div class="data-card p-6">
+                <h3 class="text-xl font-semibold mb-6 text-amber-500">Elevación Solar en el Clímax</h3>
+                <div class="chart-container">
+                    <canvas id="elevationChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="convergence" class="py-12 bg-slate-900/50 rounded-3xl border border-slate-800 px-8">
+        <div class="flex flex-col md:flex-row gap-12 items-center">
+            <div class="md:w-1/2">
+                <h2 class="text-3xl font-bold mb-6">3. Convergencia: Perseidas y Oscuridad</h2>
+                <p class="text-slate-300 leading-relaxed mb-6">
+                    El eclipse coincide con el máximo de la lluvia de estrellas de las **Perseidas**. La fase de Luna Nueva necesaria para el eclipse garantiza un cielo oscuro, permitiendo potencialmente la observación de meteoros durante los minutos de totalidad diurna.
+                </p>
+                <div class="flex items-center gap-4 text-amber-500 font-bold">
+                    <div class="w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center">☄️</div>
+                    <span>Sinergia Astronómica Única</span>
+                </div>
+            </div>
+            <div class="md:w-1/2 grid grid-cols-2 gap-4">
+                <div class="p-4 bg-slate-800 rounded-lg text-center">
+                    <span class="block text-2xl font-bold">59 km/s</span>
+                    <span class="text-xs text-slate-500 uppercase">Velocidad Meteoros</span>
+                </div>
+                <div class="p-4 bg-slate-800 rounded-lg text-center">
+                    <span class="block text-2xl font-bold">109P/S-T</span>
+                    <span class="text-xs text-slate-500 uppercase">Cometa Origen</span>
+                </div>
+                <div class="p-4 bg-slate-800 rounded-lg text-center">
+                    <span class="block text-2xl font-bold">100+</span>
+                    <span class="text-xs text-slate-500 uppercase">Meteoros / Hora</span>
+                </div>
+                <div class="p-4 bg-slate-800 rounded-lg text-center">
+                    <span class="block text-2xl font-bold">12 Ago</span>
+                    <span class="text-xs text-slate-500 uppercase">Pico de Actividad</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="history">
+        <div class="mb-10 text-center">
+            <h2 class="text-3xl font-bold mb-4">4. Memoria Histórica: 1905 vs 2026</h2>
+            <p class="text-slate-400 max-w-2xl mx-auto">
+                España rompe una sequía de 121 años. La comparación técnica revela el avance exponencial de la instrumentación astrofísica.
+            </p>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse border border-slate-800">
+                <thead>
+                    <tr class="bg-slate-800">
+                        <th class="p-4 border border-slate-700">Métrica Analítica</th>
+                        <th class="p-4 border border-slate-700 text-amber-500">Eclipse 1905</th>
+                        <th class="p-4 border border-slate-700 text-amber-500">Eclipse 2026</th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm">
+                    <tr>
+                        <td class="p-4 border border-slate-800 font-bold">Elevación Solar</td>
+                        <td class="p-4 border border-slate-800">~55° (Mediodía)</td>
+                        <td class="p-4 border border-slate-800">~2° a 12° (Ocaso)</td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 border border-slate-800 font-bold">Duración Máxima</td>
+                        <td class="p-4 border border-slate-800">3m 45s</td>
+                        <td class="p-4 border border-slate-800">1m 50s</td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 border border-slate-800 font-bold">Tecnología de Captura</td>
+                        <td class="p-4 border border-slate-800">Placas de vidrio químico</td>
+                        <td class="p-4 border border-slate-800">Sensores CMOS / Satélites</td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 border border-slate-800 font-bold">Objetivo Científico</td>
+                        <td class="p-4 border border-slate-800">Búsqueda del planeta Vulcano</td>
+                        <td class="p-4 border border-slate-800">Dinámica de la corona extrema</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="safety">
+        <div class="mb-10 text-center">
+            <h2 class="text-3xl font-bold mb-4 text-red-500">5. Protocolos de Seguridad Oftalmológica</h2>
+            <p class="text-slate-400 max-w-2xl mx-auto">
+                La observación directa sin protección certificada provoca daños térmicos y fotoquímicos irreversibles en la retina.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-6">
+                <div class="data-card p-8 border-l-4 border-red-500">
+                    <h3 class="text-xl font-bold mb-4">Riesgos Biológicos</h3>
+                    <p class="text-slate-300 mb-4">
+                        La radiación UV e IR puede "quemar" las células de la mácula sin causar dolor inmediato, ya que la retina no tiene terminaciones nerviosas sensoriales. El daño (escotomas) aparece horas después.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                        <div class="p-3 bg-red-500/10 rounded border border-red-500/20">DAÑO FOTOQUÍMICO: Estrés oxidativo por luz azul.</div>
+                        <div class="p-3 bg-red-500/10 rounded border border-red-500/20">DAÑO TÉRMICO: Fotocoagulación por infrarrojos.</div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-6 bg-slate-800 rounded-xl">
+                        <h4 class="font-bold mb-3 text-amber-500 uppercase text-xs">Validación de Filtro</h4>
+                        <ul class="text-sm space-y-2 text-slate-400">
+                            <li>• Certificación ISO 12312-2:2015.</li>
+                            <li>• Densidad óptica ND5 (bloqueo 99.999%).</li>
+                            <li>• Ausencia de rayaduras o poros.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-slate-800 rounded-xl">
+                        <h4 class="font-bold mb-3 text-red-500 uppercase text-xs">Métodos Prohibidos</h4>
+                        <ul class="text-sm space-y-2 text-slate-400">
+                            <li>• Radiografías o CDs.</li>
+                            <li>• Gafas de sol convencionales.</li>
+                            <li>• Cristales ahumados.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-amber-600 p-8 rounded-2xl flex flex-col justify-center text-slate-900">
+                <h3 class="text-2xl font-black mb-4 uppercase">Checklist de Adquisición</h3>
+                <div class="space-y-4 font-bold text-sm">
+                    <div class="flex items-start gap-3">
+                        <span class="bg-slate-900 text-white px-2 rounded">1</span>
+                        <p>Comprar solo en tiendas de astronomía reconocidas.</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="bg-slate-900 text-white px-2 rounded">2</span>
+                        <p>Verificar que el logo CE sea el de la Comunidad Europea.</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="bg-slate-900 text-white px-2 rounded">3</span>
+                        <p>Realizar el "test de la bombilla": no debes ver nada más que el filamento muy tenue.</p>
+                    </div>
+                </div>
+                <div class="mt-8 p-4 bg-slate-900 text-amber-500 rounded-lg text-center font-bold">
+                    Sigue a la SEA (Sociedad Española de Astronomía)
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="py-12 border-t border-slate-800 text-center text-slate-500 text-sm">
+    <p>Dossier Analítico 2026 | Desarrollado para Divulgación Científica</p>
+    <p class="mt-2">Sin uso de SVG o Mermaid JS. Datos basados en NASA y Observatorio Astronómico Nacional.</p>
+</footer>
+
+<script>
+    const durationData = {
+        labels: ['A Coruña', 'Oviedo', 'Burgos', 'Logroño', ['Castellón de la', 'Plana'], 'Palma de Mallorca'],
+        datasets: [{
+            label: 'Segundos de Totalidad',
+            data: [108, 110, 105, 104, 94, 96],
+            backgroundColor: '#f59e0b',
+            borderColor: '#fbbf24',
+            borderWidth: 1
+        }]
+    };
+
+    const elevationData = {
+        labels: ['Entrada (Galicia)', 'Meseta Norte', 'Valle del Ebro', 'Costa Levante', 'Salida (Baleares)'],
+        datasets: [{
+            label: 'Grados sobre horizonte',
+            data: [12.5, 9.2, 6.8, 4.1, 2.2],
+            borderColor: '#ef4444',
+            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+            fill: true,
+            tension: 0.4
+        }]
+    };
+
+    const commonOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { labels: { color: '#94a3b8' } },
+            tooltip: {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        } else {
+                            return label;
+                        }
+                    }
+                }
+            }
+        },
+        scales: {
+            y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+            x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+        }
+    };
+
+    window.onload = function() {
+        new Chart(document.getElementById('durationChart'), {
+            type: 'bar',
+            data: durationData,
+            options: commonOptions
+        });
+
+        new Chart(document.getElementById('elevationChart'), {
+            type: 'line',
+            data: elevationData,
+            options: commonOptions
+        });
+    };
+</script>
+
+</body>
+</html>

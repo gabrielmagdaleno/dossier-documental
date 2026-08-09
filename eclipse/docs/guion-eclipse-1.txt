@@ -1,0 +1,22 @@
+[SYSTEM: GLOBAL RENDER SETTINGS]
+FORMAT: Vertical (9:16)
+RESOLUTION: 1080x1920
+GLOBAL_STYLE_REFERENCE: "Vox-style documentary, data visualization, mixed media."
+BASE_BACKGROUND: Azul Pizarra (Slate Blue).
+ACCENT_COLORS: Dorado/Ámbar (solar/urgencia) y Cian (datos/tiempo).
+MAP_SOURCING_RULE: STRICT. Do NOT generate maps with AI. Retrieve REAL high-resolution topographic/satellite map of Spain. Overlay vector graphics and data on top of the real map texture.
+
+[API_ASSET_INSTRUCTIONS_BY_SCENE]
+
+SCENE 1 [0:00-0:05] (The Hook)
+ACTION: Render deep Slate Blue background. Place a highly detailed, realistic image of a total solar eclipse (black disc, glowing amber corona) in the center. Overlay bold white and amber typography.
+
+SCENE 2 [0:05-0:20] (The Real Map)
+ACTION: Import REAL high-resolution topographic satellite map of the Iberian Peninsula. Apply a slight Slate Blue color-grade to the map to match global style. Animate a dark, semi-transparent diagonal shadow band crossing from Galicia to Balearic Islands. Overlay UI elements in Cyan (Speed: 3.200 km/h).
+
+SCENE 3 [0:20-0:35] (Split Concept)
+ACTION_TOP: Realistic dark night sky texture with glowing amber shooting stars (Perseids).
+ACTION_BOTTOM: Clean medical diagram of a human eye in Slate Blue and Cyan styling. Emphasize the macula with an Amber warning accent. No photorealism on the eye, keep it institutional infographic style.
+
+SCENE 4 [0:35-0:45] (Data Dashboard)
+ACTION: Render an institutional UI data dashboard over Slate Blue background. Display the real timings table from the Notion/GitHub database using Cyan and White text. Highlight the "ISO 12312-2" warning in Amber.
