@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis: Crisis Financiación Autonómica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfbf7;
+            color: #2d3748;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        .tab-active {
+            border-bottom: 3px solid #3b82f6;
+            color: #1d4ed8;
+            font-weight: 600;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #fdfbf7 0%, #f5f0e6 100%);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold text-slate-800">Observatorio <span class="text-blue-600">SFA</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <button onclick="scrollToSection('dashboard')" class="text-gray-600 hover:text-blue-600 px-3 py-2 text-sm font-medium">Dashboard</button>
+                    <button onclick="scrollToSection('constitucional')" class="text-gray-600 hover:text-blue-600 px-3 py-2 text-sm font-medium">Bloqueo Legal</button>
+                    <button onclick="scrollToSection('modelos')" class="text-gray-600 hover:text-blue-600 px-3 py-2 text-sm font-medium">Modelos</button>
+                    <button onclick="scrollToSection('deuda')" class="text-gray-600 hover:text-blue-600 px-3 py-2 text-sm font-medium">Deuda y CCAA</button>
+                    <button onclick="scrollToSection('demografia')" class="text-gray-600 hover:text-blue-600 px-3 py-2 text-sm font-medium">Horizonte 2050</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="py-12 gradient-bg border-b">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
+                Crisis Estructural del Sistema de Financiación Autonómica
+            </h1>
+            <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                Informe técnico interactivo sobre el colapso del modelo territorial en España: desde el bloqueo constitucional hasta el impacto de la deuda y la demografía en el Estado del Bienestar.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        
+        <section id="dashboard" class="mb-16">
+            <div class="bg-white rounded-2xl p-8 card-shadow border border-gray-100">
+                <h2 class="text-2xl font-bold mb-4 text-slate-800">Dashboard de Situación (2024/25)</h2>
+                <p class="text-slate-600 mb-8">
+                    Esta sección presenta los indicadores macroeconómicos fundamentales que definen el estado actual del sistema. Observamos una dualidad crítica: una deuda pública consolidada que supera el 100% del PIB nacional mientras las disparidades entre comunidades se ensanchan hasta límites históricos. Los datos reflejan la liquidación más reciente y los saldos de deuda certificados por el Banco de España.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                    <div class="p-6 bg-blue-50 rounded-xl border border-blue-100">
+                        <p class="text-blue-600 text-sm font-semibold uppercase tracking-wider">Deuda Pública Global</p>
+                        <p class="text-3xl font-bold text-blue-900">1,699 B€</p>
+                        <p class="text-sm text-blue-700 mt-1">100,8% del PIB</p>
+                    </div>
+                    <div class="p-6 bg-red-50 rounded-xl border border-red-100">
+                        <p class="text-red-600 text-sm font-semibold uppercase tracking-wider">Deuda Autonómica</p>
+                        <p class="text-3xl font-bold text-red-900">342.000 M€</p>
+                        <p class="text-sm text-red-700 mt-1">20,2% del PIB nacional</p>
+                    </div>
+                    <div class="p-6 bg-amber-50 rounded-xl border border-amber-100">
+                        <p class="text-amber-600 text-sm font-semibold uppercase tracking-wider">Brecha Máx. Financiación</p>
+                        <p class="text-3xl font-bold text-amber-900">977 €</p>
+                        <p class="text-sm text-amber-700 mt-1">Por hab. (Cantabria vs Murcia)</p>
+                    </div>
+                    <div class="p-6 bg-green-50 rounded-xl border border-green-100">
+                        <p class="text-green-600 text-sm font-semibold uppercase tracking-wider">Media del Sistema</p>
+                        <p class="text-3xl font-bold text-green-900">3.666 €</p>
+                        <p class="text-sm text-green-700 mt-1">Financ. efectiva por hab.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Financiación Efectiva (Euros/Hab. Ajustado)</h3>
+                        <div class="chart-container">
+                            <canvas id="chartFinanciacion"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Ratio Deuda/PIB por Regiones Críticas</h3>
+                        <div class="chart-container">
+                            <canvas id="chartDeudaCCAA"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="constitucional" class="mb-16">
+            <div class="flex flex-col md:flex-row gap-10 items-start">
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-6 text-slate-800">1. El Bloqueo Legal y Constitucional</h2>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        El sistema actual sufre de una "parálisis por diseño". La tensión entre la <strong>Autonomía Financiera (Art. 156)</strong> y la <strong>Solidaridad Interterritorial (Art. 158)</strong> ha creado un callejón sin salida jurídico. El modelo de 2009, caducado desde 2014, se mantiene por el blindaje del <em>statu quo</em> que impide que ninguna comunidad pierda recursos, aunque su realidad demográfica haya cambiado drásticamente.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500 shadow-sm cursor-pointer hover:bg-gray-50 transition" onclick="toggleAccordion('acc1')">
+                            <div class="flex justify-between items-center">
+                                <span class="font-semibold text-slate-700">Art. 156: Autonomía Financiera</span>
+                                <span id="acc1-icon">+</span>
+                            </div>
+                            <div id="acc1" class="hidden mt-3 text-sm text-slate-500">
+                                Las CCAA gozan de autonomía para desarrollar sus competencias, pero supeditadas a la coordinación estatal y solidaridad nacional. La STC 31/2010 impide que acuerdos bilaterales condicionen este esfuerzo solidario.
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border-l-4 border-blue-300 shadow-sm cursor-pointer hover:bg-gray-50 transition" onclick="toggleAccordion('acc2')">
+                            <div class="flex justify-between items-center">
+                                <span class="font-semibold text-slate-700">Art. 158: Solidaridad y Nivelación</span>
+                                <span id="acc2-icon">+</span>
+                            </div>
+                            <div id="acc2" class="hidden mt-3 text-sm text-slate-500">
+                                El Estado debe corregir desequilibrios. Se materializa en el Fondo de Garantía (75% de los impuestos cedidos) para asegurar servicios básicos iguales para todos.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 bg-slate-900 rounded-2xl p-8 text-white shadow-2xl">
+                    <h3 class="text-xl font-bold mb-4 text-blue-400">¿Por qué no se reforma?</h3>
+                    <ul class="space-y-4 text-sm text-slate-300">
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">●</span>
+                            <span><strong>La Trampa del Statu Quo:</strong> El Fondo de Suficiencia Global garantiza que nadie reciba menos que en 2009, perpetuando privilegios históricos.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">●</span>
+                            <span><strong>Veto Cruzado:</strong> Las CCAA beneficiadas (norte e interior) vetan cambios que reduzcan su financiación per cápita.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">●</span>
+                            <span><strong>Coste Político:</strong> Converger a la media implicaría recortes nominales en regiones sobre-financiadas, algo inasumible electoralmente.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="modelos" class="mb-16 bg-white rounded-2xl p-8 card-shadow border border-gray-100">
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold mb-6 text-slate-800 text-center">2. Choque de Modelos: Nivelación vs Ordinalidad</h2>
+                <p class="text-slate-600 max-w-4xl mx-auto text-center mb-8">
+                    El conflicto técnico reside en qué lógica debe primar. Mientras el sistema busca la <strong>Nivelación Básica</strong> (que todos tengan el mismo dinero para sanidad), las regiones ricas exigen <strong>Ordinalidad</strong>: que tras aportar a la solidaridad, no acaben con menos dinero disponible que las regiones que recibieron su ayuda.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1">
+                    <h3 class="text-lg font-bold mb-4 text-blue-800">Simulación de Inversión de Ranking</h3>
+                    <div class="chart-container">
+                        <canvas id="chartOrdinalidad"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-4 italic text-center">
+                        Representación del "Efecto Expolio": Regiones con alta capacidad (Azul) terminan con recursos efectivos (Rojo) por debajo de la media tras la nivelación.
+                    </p>
+                </div>
+                <div class="order-1 md:order-2 space-y-6">
+                    <div class="p-6 bg-slate-50 rounded-xl border-l-4 border-slate-400">
+                        <h4 class="font-bold text-slate-800 mb-2">Nivelación Básica (Fondo de Garantía)</h4>
+                        <p class="text-sm text-slate-600">Se retiene el 75% de la recaudación teórica y se reparte según la "población ajustada". Es el corazón solidario del sistema, pero el 25% restante y otros fondos adicionales distorsionan la equidad final.</p>
+                    </div>
+                    <div class="p-6 bg-blue-50 rounded-xl border-l-4 border-blue-500">
+                        <h4 class="font-bold text-blue-900 mb-2">Principio de Ordinalidad</h4>
+                        <p class="text-sm text-blue-800">Exige que el orden de riqueza inicial se mantenga tras las transferencias. En España, regiones como Madrid o Baleares suelen caer puestos en el ranking de recursos disponibles tras ser los mayores aportadores.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="deuda" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-slate-800">3. El Abismo del Sistema Dual y la Deuda</h2>
+            <p class="text-slate-600 mb-8 leading-relaxed">
+                España convive con dos regímenes fiscales que fracturan la equidad: el <strong>Régimen Común</strong> (LOFCA) y el <strong>Régimen Foral</strong> (País Vasco y Navarra). La infrafinanciación estructural de regiones como la C. Valenciana o Murcia ha derivado en un endeudamiento que no responde a un exceso de gasto, sino a la falta de ingresos básicos para cubrir sanidad y educación.
+            </p>
+            
+            <div class="bg-amber-50 p-8 rounded-2xl mb-10 border border-amber-100">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 text-amber-900">El Impacto de la "Financiación Singular"</h3>
+                        <p class="text-sm text-amber-800 mb-6">
+                            La salida de Cataluña del régimen común (cesión del 100% de impuestos) supondría un seísmo fiscal. Según proyecciones de Fedea, la pérdida de recursos para la "caja común" obligaría a ajustes drásticos en el resto del territorio.
+                        </p>
+                        <div class="chart-container" style="height: 250px;">
+                            <canvas id="chartImpactoSingular"></canvas>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                                <span class="text-sm font-medium">Caída Ingresos Estado</span>
+                                <span class="font-bold text-red-600">-13.200 M€</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                                <span class="text-sm font-medium">Ajuste Gasto CCAA (promedio)</span>
+                                <span class="font-bold text-red-600">-10,7%</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                                <span class="text-sm font-medium">Subida IRPF Estatal necesaria</span>
+                                <span class="font-bold text-orange-600">+29,5%</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-amber-700 mt-6 italic">
+                            *Escenario basado en la asunción total de la AEAT por la Agencia Tributaria de Cataluña sin compensación equivalente del Estado.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="demografia" class="mb-16">
+            <div class="bg-white rounded-2xl p-8 card-shadow border border-gray-100">
+                <h2 class="text-3xl font-bold mb-6 text-slate-800">4. El Muro Demográfico: Horizonte 2050</h2>
+                <p class="text-slate-600 mb-8">
+                    La crisis de financiación no es solo contable, es demográfica. Los costes del Estado del Bienestar están ligados a la edad. El envejecimiento y la dispersión geográfica encarecen servicios que la fórmula actual (población ajustada) no pondera suficientemente. Proyectamos un escenario donde la tasa de dependencia pondrá en jaque la solvencia nacional.
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <div>
+                        <h3 class="text-lg font-bold mb-4">Proyección Tasa de Dependencia (AIReF)</h3>
+                        <div class="chart-container">
+                            <canvas id="chartDemografia"></canvas>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-4 italic">
+                            Relación entre población <16 / >66 años respecto a la población activa. Un 70% implica que apenas 1,4 trabajadores sostendrán a cada dependiente.
+                        </p>
+                    </div>
+                    <div class="flex flex-col justify-around">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-4 bg-slate-50 rounded-xl">
+                                <span class="block text-xs uppercase text-slate-500 font-bold mb-1">Gasto Pensiones 2050</span>
+                                <span class="text-2xl font-bold text-slate-800">16,4% <span class="text-sm font-normal text-slate-400">/ PIB</span></span>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-xl">
+                                <span class="block text-xs uppercase text-slate-500 font-bold mb-1">Gasto Sanitario</span>
+                                <span class="text-2xl font-bold text-slate-800">8,4% <span class="text-sm font-normal text-slate-400">/ PIB</span></span>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-xl">
+                                <span class="block text-xs uppercase text-slate-500 font-bold mb-1">Deuda Proyectada 2070</span>
+                                <span class="text-2xl font-bold text-red-600">186% <span class="text-sm font-normal text-slate-400">/ PIB</span></span>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-xl">
+                                <span class="block text-xs uppercase text-slate-500 font-bold mb-1">Tasa Actividad</span>
+                                <span class="text-2xl font-bold text-slate-800">~66% <span class="text-sm font-normal text-slate-400">estancada</span></span>
+                            </div>
+                        </div>
+                        <div class="mt-6 p-4 border border-blue-200 bg-blue-50 rounded-xl">
+                            <h4 class="font-bold text-blue-900 text-sm mb-2">Factores de Coste No Lineal</h4>
+                            <ul class="text-xs text-blue-800 space-y-1 list-disc ml-4">
+                                <li>Envejecimiento extremo en el interior (Coste fijos altos).</li>
+                                <li>Presión de población flotante/turística en el Levante.</li>
+                                <li>Dispersión geográfica (Consultorios y escuelas rurales).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-slate-900 rounded-3xl p-10 text-white mb-10 overflow-hidden relative">
+            <div class="relative z-10">
+                <h2 class="text-3xl font-bold mb-6">Conclusiones: El Ocaso de la Cohesión</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="text-blue-400 font-bold mb-2">Límite Normativo</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            El modelo de 2009 ha agotado su recorrido. La brecha de casi 1.000€ por habitante entre regiones liquida el principio de igualdad ciudadana del Art. 139.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-blue-400 font-bold mb-2">Riesgo de Balcanización</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            La salida de grandes aportadores del sistema común amenaza con un colapso redistributivo de hasta el 11% del presupuesto del resto de CCAA.
+                        </li>
+                    </div>
+                    <div>
+                        <h3 class="text-blue-400 font-bold mb-2">Insostenibilidad</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            La deuda del 40% del PIB en regiones como Valencia no es mala gestión, es infrafinanciación. Sin reforma, el impago técnico es una certeza matemática.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500 opacity-10 rounded-full -mr-20 -mt-20"></div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t py-8 text-center text-slate-500 text-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>© 2025 Informe Técnico: La Crisis Estructural del SFA - Basado en Datos Fedea, AIReF y Banco de España.</p>
+        </div>
+    </footer>
+
+    <script>
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleAccordion(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                icon.textContent = '-';
+            } else {
+                el.classList.add('hidden');
+                icon.textContent = '+';
+            }
+        }
+
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } }
+            }
+        };
+
+        const ctxFinan = document.getElementById('chartFinanciacion').getContext('2d');
+        new Chart(ctxFinan, {
+            type: 'bar',
+            data: {
+                labels: ['Cantabria', 'Media SFA', 'Cataluña', 'C. Valenciana', 'Murcia'],
+                datasets: [{
+                    label: 'Financiación (€/hab ajustado)',
+                    data: [4349, 3666, 3701, 3380, 3372],
+                    backgroundColor: ['#1e40af', '#64748b', '#3b82f6', '#ef4444', '#b91c1c']
+                }]
+            },
+            options: commonOptions
+        });
+
+        const ctxDeuda = document.getElementById('chartDeudaCCAA').getContext('2d');
+        new Chart(ctxDeuda, {
+            type: 'bar',
+            data: {
+                labels: ['C. Valenciana', 'Murcia', 'C-La Mancha', 'Cataluña', 'Media CCAA', 'Madrid', 'Navarra'],
+                datasets: [{
+                    label: '% Deuda sobre PIB regional',
+                    data: [40.7, 31.2, 28.3, 28.2, 20.2, 11.3, 9.4],
+                    backgroundColor: '#ef4444'
+                }]
+            },
+            options: commonOptions
+        });
+
+        const ctxOrd = document.getElementById('chartOrdinalidad').getContext('2d');
+        new Chart(ctxOrd, {
+            type: 'bar',
+            data: {
+                labels: ['Región A (Rica)', 'Región B (Media)', 'Región C (Receptora)'],
+                datasets: [
+                    { label: 'Capacidad Fiscal Inicial', data: [130, 100, 75], backgroundColor: '#3b82f6' },
+                    { label: 'Recursos Tras Nivelación', data: [98, 100, 105], backgroundColor: '#fb7185' }
+                ]
+            },
+            options: commonOptions
+        });
+
+        const ctxDemo = document.getElementById('chartDemografia').getContext('2d');
+        new Chart(ctxDemo, {
+            type: 'line',
+            data: {
+                labels: ['2020', '2030', '2040', '2050', '2060', '2070'],
+                datasets: [{
+                    label: 'Tasa de Dependencia (%)',
+                    data: [54.2, 58.5, 63.1, 69.8, 68.2, 65.5],
+                    borderColor: '#1e293b',
+                    backgroundColor: 'rgba(30, 41, 59, 0.1)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: commonOptions
+        });
+
+        const ctxSingular = document.getElementById('chartImpactoSingular').getContext('2d');
+        new Chart(ctxSingular, {
+            type: 'doughnut',
+            data: {
+                labels: ['Aportación CAT Actual', 'Posible Déficit Común'],
+                datasets: [{
+                    data: [25000, 13200],
+                    backgroundColor: ['#e2e8f0', '#f97316']
+                }]
+            },
+            options: commonOptions
+        });
+    </script>
+</body>
+</html>
